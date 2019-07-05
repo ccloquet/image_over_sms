@@ -1,0 +1,127 @@
+<html>
+<body style='text-align:center'>
+<br><b>PHOTO OVER SMS</b><br>
+<input id="ac" type='password' placeholder='TWILIO ACCOUNT SID'><br>
+<input id="to" type='password' placeholder='TWILIO TOKEN'><br>
+<div id='get'>GO!</div>
+<div id='progress'></div>
+<div id='myimgs' style='margin-top:50px'></div>
+</body>
+<script	src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script>
+
+	var pn = 'XXXXXXXXX' // Twilio phone number
+
+	$('#get').on('click', function(e)	
+	{
+		
+		var ac = $('#ac').val().trim()
+		var to = $('#to').val().trim()
+		//next_page_uri
+
+		var txt = [];
+		var next_uri = 'https://api.twilio.com/2010-04-01/Accounts/'+ac+'/Messages.json?PageSize=20&To='+pn;
+
+		function get_txt ()
+		{
+			//console.log(txt)
+			$('#progress').text($('#progress').text() + '*')
+
+			setTimeout(function()
+			{
+				console.log('start request')
+				var request = new XMLHttpRequest();
+				request.open("GET", next_uri, false);
+				request.setRequestHeader("Authorization", authenticateUser(ac, to));  
+				request.send();
+				console.log('end request')
+
+				// view request status
+				var resp = JSON.parse(request.response)
+
+				//console.log(request)//.messages);
+
+				var m = resp.messages
+
+				for (var i=0; i<m.length; ++i)
+				{
+					//console.log(m[i].body)
+	
+					if (m[i].body.substr(0,1) == '#')
+					{
+						txt.push(m[i].body)
+					}
+				}
+	
+				//console.log(resp)
+				if (resp.next_page_uri == null)
+				{
+					console.log('end')
+					callback()
+				}
+				else
+				{
+					console.log('go ahead')
+					next_uri = 'https://api.twilio.com' + resp.next_page_uri
+					get_txt()
+				}
+			}, 1000)
+		}
+
+		$('#progress').text('')
+		get_txt()
+	 
+	 	function callback()
+		{
+
+			var txv = {}
+			var M   = {}
+
+			for (j=0; j<txt.length; ++j)
+			{
+				var txu = txt[j].split('#')
+
+				if (txv[txu[1]] == null) 
+				{
+					txv[txu[1]] = {}
+				}
+
+				txv[txu[1]][txu[2]] = txu[4]
+				M[txu[1]]           = txu[3];
+			}
+
+			var f    = {};
+			var html = ''
+
+			for (k in txv)
+			{
+				console.log(k)
+				if (txv.hasOwnProperty(k)) 
+				{
+					var f = ''
+	
+					for (var m=0; m<M[k]; ++m)
+					{
+						f += txv[k][m];
+					}
+				}
+				html += "<img style='transform:rotate(90deg)' src='" + f + "'>"
+			}
+
+			$('#myimgs').html(html)
+
+			// could add error correction
+		}
+	
+	})
+
+function authenticateUser(user, password)
+{
+    var token = user + ":" + password;
+    var hash = btoa(token); 
+
+    return "Basic " + hash;
+}
+
+</script>
+</html>

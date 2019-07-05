@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<style>
+	body 
+	{
+		padding: 3px;
+		font-size: 22pt;
+	}
+</style>
+
+<body style="text-align:center"> 
+	<br><br>
+	<img id='res'>
+	<div id='test' onclick='test()'>TAKE PHOTO</div>
+	<div id='status'></div>
+	<div id='progress'></div>
+</html>
+
+<script src="jquery-1.12.1.js"></script>
+<script src="cordova.js"></script>
+
+<script>
+	var pn = '+XXXXXXXXX' // TWILIO PHONE NUMBER
+ 
+	//some inspiration from https://zocada.com/compress-resize-images-javascript-browser/
+ 
+	function test()
+	{
+		navigator.camera.getPicture(onSuccess, onFail, { quality: 5,  destinationType: Camera.DestinationType.DATA_URL});
+	}
+
+	function onSuccess(imageData) 
+	{
+		const width  = 200;
+		const height = 120;
+
+		var res = "data:image/jpeg;base64," + imageData;
+ 
+        	const img = new Image();
+ 
+		console.log(res.length, res)
+
+	        img.src = res;
+
+        	img.onload = function()  
+		{
+	                const elem = document.createElement('canvas');
+        	        elem.width = width;
+                	elem.height = height;
+
+	                const ctx = elem.getContext('2d');
+        	        // img.width and img.height will contain the original dimensions
+	                ctx.drawImage(img, 0, 0, width, height);
+			console.log(ctx)
+			cu = ctx.canvas.toDataURL('image/jpeg', 1.0);
+			console.log(cu.length, cu);
+			$('#res').attr('src', cu)
+
+			var L  = 145
+			var N  = Math.ceil(cu.length/L)
+			var id = Math.floor(Math.random()*100)
+			//#99,9999,9999#
+
+			var i  = 0;
+			sendLine()
+			$('#status').text('sending')
+
+			function sendLine()
+			{
+				$('#progress').text($('#progress').text() + '*')
+				setTimeout(function()
+				{
+					var txt = '#' + id + '#' + i + '#' + N + '#' + cu.substr(i*L, L)
+					console.log(txt)
+					SMS.sendSMS(pn, txt, function(){console.log('OK')}, function(){console.log('ERROR')});	
+	
+					if (i < N-1)
+					{
+						++i
+						sendLine()
+					}
+					else
+					{
+						$('#status').text('sent')
+					}
+				}, 15000)
+			}
+
+            	}
+	            // should enable error correction 
+		    // eg one or 2 strings allowing to recompute 1 or 2 missing data strings	
+	}
+
+	function onFail(message) 
+	{
+	    alert('Failed because: ' + message);
+	}
+ 
+</script>
+</body>
+
+
