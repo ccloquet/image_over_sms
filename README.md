@@ -10,6 +10,8 @@ render.html -> code for Web server
 3. take a picture on the phone
 4. launch the renderer, enter your Twilio credentials then press GO!
 
+Speed: 145 base-64 characters every (say) 5 seconds ->  29/sec -> 232 bps :-)
+
 Screenshot:
 <img src='screenshot.PNG'>
 
