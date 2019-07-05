@@ -9,3 +9,7 @@ render.html -> code for Web server
 2. write the number in the "pn"  var (both in render.html & index.html)
 3. take a picture on the phone
 4. launch the renderer, enter your Twilio credentials then press GO!
+
+Screenshot:
+<img src='screenshot.PNG'>
+
