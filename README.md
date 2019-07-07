@@ -12,7 +12,7 @@ Howto
 2. write the number in the "pn" variable (both in render.html & index.html)
 3. build thecordova project
 3. take a picture on the phone
-4. launch the renderer (on any server -- only client side code)
+4. launch the renderer (on any server, even on GitHub pages -- only client side code)
 5. enter your Twilio credentials 
 6. press GO!
 
