@@ -24,3 +24,6 @@ Speed: 145 base-64 characters every (say) 5 seconds ->  29/sec -> 232 bps :-)
 Screenshot:
 <img src='screenshot.PNG'>
 
+As any idea you can have, this has already been done :-)
+
+Ref: Mohammad Shirali-Shahreza & Sajad Shirali-Shahreza, Sending pictures by SMS, Proc. 2009 11th Intl. Conf. on Adv. Comm. Tech., https://ieeexplore.ieee.org/document/4809938
