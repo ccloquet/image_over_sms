@@ -1,5 +1,5 @@
 # image_over_sms
-Take a photo and send it through SMS
+Take a photo with your smartphone and send it through plain SMS (ie not MMS!)
 
 Quick & dirty
 
