@@ -1,8 +1,9 @@
 <html>
-<body style='text-align:center'>
+<body style='text-align:center; font-family:Lucida Sans'>
 <br><b>PHOTO OVER SMS</b><br>
-<input id="ac" type='password' placeholder='TWILIO ACCOUNT SID'><br>
+<input id="ac" type='text' placeholder='TWILIO ACCOUNT SID'><br>
 <input id="to" type='password' placeholder='TWILIO TOKEN'><br>
+<input id="pn" type='text' placeholder='TWILIO PHONE (+XXX...)'><br>
 <div id='get'>GO!</div>
 <div id='progress'></div>
 <div id='myimgs' style='margin-top:50px'></div>
@@ -10,11 +11,9 @@
 <script	src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script>
 
-	var pn = 'XXXXXXXXX' // Twilio phone number
-
 	$('#get').on('click', function(e)	
 	{
-		
+		var pn = $('#pn').val().trim()	// Twilio phone number
 		var ac = $('#ac').val().trim()
 		var to = $('#to').val().trim()
 		//next_page_uri
