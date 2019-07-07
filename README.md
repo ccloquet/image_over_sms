@@ -9,14 +9,14 @@ Quick & dirty
 Howto
 
 1. Create a Twilio number
-2. write the number in the "pn" variable (both in render.html & index.html)
-3. build thecordova project
+2. write the number in the "pn" variable in index.html
+3. build the Cordova project
 3. take a picture on the phone
 4. launch the renderer (on any server, even on GitHub pages -- only client side code)
 
    demo: https://blog.my-poppy.eu/image_over_sms/render.html
    
-5. enter your Twilio credentials 
+5. enter your Twilio credentials & the Twilio phone number used 
 6. press GO!
 
 Speed: 145 base-64 characters every (say) 5 seconds ->  29/sec -> 232 bps :-)
