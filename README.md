@@ -13,6 +13,7 @@ Howto
 3. build thecordova project
 3. take a picture on the phone
 4. launch the renderer (on any server, even on GitHub pages -- only client side code)
+   demo: https://blog.my-poppy.eu/image_over_sms/render.html
 5. enter your Twilio credentials 
 6. press GO!
 
