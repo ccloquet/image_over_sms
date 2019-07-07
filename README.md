@@ -6,6 +6,7 @@ Quick & dirty
 - index.html  -> code for Cordova
 - render.html -> code for Web server
 
+Howto
 
 1. Create a Twilio number
 2. write the number in the "pn" variable (both in render.html & index.html)
