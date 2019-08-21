@@ -6,14 +6,18 @@
 	body 
 	{
 		padding: 3px;
-		font-size: 22pt;
+		font-size: 20pt;
 	}
 </style>
 
-<body style="text-align:center"> 
-	<br><br>
+<body style="text-align:center;"> 
+	<br>
+	<b>Send photo by SMS</b>
+	<br><br><br>
+	1. Twilio phone number:<br>
+	<input id='pn' type="tel" style='font-size:125%'  placeholder="(eg: +32460123456)"><br><br>
 	<img id='res'>
-	<div id='test' onclick='test()'>TAKE PHOTO</div>
+	<div id='test' style='border:1px solid black; border-radius:5px;background:lightblue' onclick='test()'>2. Take photo<br>& send it by SMS</div>
 	<div id='status'></div>
 	<div id='progress'></div>
 </html>
@@ -22,7 +26,6 @@
 <script src="cordova.js"></script>
 
 <script>
-	var pn = '+XXXXXXXXX' // TWILIO PHONE NUMBER
  
 	//some inspiration from https://zocada.com/compress-resize-images-javascript-browser/
  
@@ -67,6 +70,8 @@
 			sendLine()
 			$('#status').text('sending')
 
+			var pn = $('#pn').val()
+
 			function sendLine()
 			{
 				$('#progress').text($('#progress').text() + '*')
@@ -85,7 +90,7 @@
 					{
 						$('#status').text('sent')
 					}
-				}, 15000)
+				}, 5000)
 			}
 
             	}
